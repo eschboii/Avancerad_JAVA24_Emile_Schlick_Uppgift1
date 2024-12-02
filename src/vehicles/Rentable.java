@@ -2,7 +2,7 @@ package vehicles;
 
 public interface Rentable {
 
-    void hyraFord();
+    void hyraFordon();
     void aterlamnaFordon();
     void beraknaKostnad();
 

@@ -2,12 +2,12 @@ package vehicles;
 
 public class Motorcykel extends Vehicle implements Rentable{
 
-    public Motorcykel(String fordonsTyp, String fordonsMarke, String fordonsModell, String regNr, int dagsHyra, int lager) {
-        super(fordonsTyp, fordonsMarke, fordonsModell, regNr, dagsHyra, lager);
+    public Motorcykel(String fordonsTyp, String fordonsMarke, String fordonsModell, String regNr, int dagsHyra) {
+        super(fordonsTyp, fordonsMarke, fordonsModell, regNr, dagsHyra);
     }
 
     @Override
-    public void hyraFord() {
+    public void hyraFordon() {
 
     }
 

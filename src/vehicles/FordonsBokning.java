@@ -15,6 +15,7 @@ public class FordonsBokning {
         while (bokaFordon) {
             System.out.println("Hej, välkommen till Emiles fordonsbokning!");
             System.out.println("Var vänlig välj ett av alternativen");
+            System.out.println();
             System.out.println("1. Välj fordon");
             System.out.println("2. Lämna tillbaka fordon");
             System.out.println("3. Avsluta med kvitto");

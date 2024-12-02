@@ -7,18 +7,16 @@ public abstract class Vehicle {
     String regNr;
 
     int dagsHyra;
-    int forseningsTillagg;
+    int lager;
 
-    public Vehicle(String fordonsTyp, String fordonsMarke, String fordonsModell, String regNr, int dagsHyra, int forseningsTillagg) {
+    public Vehicle(String fordonsTyp, String fordonsMarke, String fordonsModell, String regNr, int dagsHyra, int lager) {
         this.fordonsTyp = fordonsTyp;
         this.fordonsMarke = fordonsMarke;
         this.fordonsModell = fordonsModell;
         this.regNr = regNr;
         this.dagsHyra = dagsHyra;
-        this.forseningsTillagg = forseningsTillagg;
+        this.lager = lager;
     }
-
-    abstract double totalHyreskostnad();
 
     public String getFordonstyp(){
         return fordonsTyp;
@@ -36,8 +34,8 @@ public abstract class Vehicle {
     public int getDagsHyra(){
         return dagsHyra;
     }
-    public int getForseningsTillagg(){
-        return forseningsTillagg;
+    public int getLager(){
+        return lager;
     }
 
 

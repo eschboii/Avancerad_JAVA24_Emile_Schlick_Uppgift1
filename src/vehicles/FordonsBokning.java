@@ -36,7 +36,7 @@ public class FordonsBokning {
         switch (getVal()) {
             case 1: hyrFordonUI();
                 break;
-            case 2: //aterlamnaFordonUI(kund.getBilLager(),kund.getMotorcykelLager(),kund.getTraktorLager());
+            case 2: aterlamnaFordonUI(kund.getTotaltLager());
                 break;
             case 3: kvittoUI();
                 break;
@@ -58,7 +58,6 @@ public class FordonsBokning {
             }
         }
 
-        // Print the rented motorcycles
         System.out.println("\nHyrda motorcyklar:");
         ArrayList<Vehicle> motorcykelLager = kund.getMotorcykelLager();
         if (motorcykelLager.isEmpty()) {
@@ -140,7 +139,7 @@ public class FordonsBokning {
             hyrFordonUI();
         } else {
             FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
-            fordonsHyrning.hyrFordon(getVal(), "Bil");
+            fordonsHyrning.hyraFordon(getVal(), "Bil");
         }
 
         hyrFordonUI ();
@@ -164,7 +163,7 @@ public class FordonsBokning {
             hyrFordonUI();
         } else {
             FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
-            fordonsHyrning.hyrFordon(getVal(), "Motorcykel");
+            fordonsHyrning.hyraFordon(getVal(), "Motorcykel");
         }
 
         hyrFordonUI ();
@@ -187,56 +186,39 @@ public class FordonsBokning {
             hyrFordonUI();
         } else {
             FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
-            fordonsHyrning.hyrFordon(getVal(), "Traktor");
+            fordonsHyrning.hyraFordon(getVal(), "Traktor");
         }
 
         hyrFordonUI ();
     }
 
-   /* private void aterlamnaFordonUI (ArrayList antalBil, ArrayList antalMotorcykel, ArrayList antalTraktor){
+   private void aterlamnaFordonUI (ArrayList<Vehicle> hyrdaFordon){
         System.out.println("Vilken av dina fordon vill du lämna tillbaka?");
+        int raknare = 1;
 
-        if (antalBil > 0) {
-            System.out.printf("1. Bil %d", kund.getBilLager());
-            System.out.println();
-        } else if (antalMotorcykel > 0) {
-            System.out.printf("2. Motorcykel %d", kund.getMotorcykelLager());
-            System.out.println();
-        } else if (antalTraktor > 0) {
-            System.out.printf("3. Traktor %d", kund.getTraktorLager());
-            System.out.println();
-        }
+       for (Vehicle hyrdaFordons : hyrdaFordon) {
+           System.out.println(raknare + ". " + hyrdaFordons);
+           raknare++;
+       }
 
-        System.out.println("4. Tillbaka");
+       System.out.println(raknare + ". Tillbaka");
 
-        scanningInt();
-        aterlamnaFordonsAlternativ(getVal());
-    }*/
+       scanningInt();
+       //if
+       aterlamnaFordonsAlternativ(hyrdaFordon);
+    }
 
-    private void aterlamnaFordonsAlternativ(int val){
-        switch (val) {
-            case 1:
+    private void aterlamnaFordonsAlternativ(ArrayList<Vehicle> hyrdaFordon){
+        switch (getVal()) {
+            case 1: FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
+
+               // fordonsHyrning.aterlamnaFordon(Bil);
                 break;
             case 2:
                 break;
             case 3:
                 break;
             case 4: viBokarFordon();
-        }
-    }
-
-    private void hyrValtFordon(int val){
-        switch (val) {
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3: hyrFordonUI();
-                break;
-            case 4:
-            default:
-                System.out.println("Ogiltigt val, försök igen.");
-                break;
         }
     }
 

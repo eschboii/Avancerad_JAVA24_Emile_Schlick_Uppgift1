@@ -1,6 +1,6 @@
 package vehicles;
 
-public class Motorcykel extends Vehicle implements Rentable{
+public class Motorcykel extends Vehicle{
 
     public Motorcykel(String fordonsTyp, String fordonsMarke, String fordonsModell, String regNr, int dagsHyra) {
         super(fordonsTyp, fordonsMarke, fordonsModell, regNr, dagsHyra);
@@ -13,19 +13,4 @@ public class Motorcykel extends Vehicle implements Rentable{
         lager.sattVehicleTillLager(mc2);
     }
 
-
-    @Override
-    public void hyraFordon() {
-
-    }
-
-    @Override
-    public void aterlamnaFordon() {
-
-    }
-
-    @Override
-    public void beraknaKostnad() {
-
-    }
 }

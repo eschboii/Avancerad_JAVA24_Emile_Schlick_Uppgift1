@@ -1,6 +1,6 @@
 package vehicles;
 
-public class FordonsHyrning {
+public class FordonsHyrning implements Rentable{
 
     private FordonsLager fordonsLager;
     private Kund kund;
@@ -10,7 +10,8 @@ public class FordonsHyrning {
         this.kund = kund;
     }
 
-    public void hyrFordon (int fordonsVal, String fordon) {
+    @Override
+    public void hyraFordon (int fordonsVal, String fordon) {
         int raknare = 1;
         Vehicle valtFordon = null;
 
@@ -61,6 +62,26 @@ public class FordonsHyrning {
 
     private void taBortFordonFranLager(Vehicle vehicle) {
         fordonsLager.taBortFordonFranLager(vehicle);
+
+    }
+
+
+    @Override
+    public void aterlamnaFordon(Vehicle vehicle) {
+        if (vehicle instanceof Bil) {
+            kund.taBortBilFranKund(vehicle);
+        } else if (vehicle instanceof Motorcykel) {
+            kund.taBortMotorcykelFranKund(vehicle);
+        } else if (vehicle instanceof Traktor) {
+            kund.taBortTraktorFranKund(vehicle);
+        }
+
+    }
+
+    @Override
+    public void beraknaKostnad() {
+
+
     }
 }
 

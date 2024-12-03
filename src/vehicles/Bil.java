@@ -1,6 +1,6 @@
 package vehicles;
 
-public class Bil extends Vehicle implements Rentable{
+public class Bil extends Vehicle{
 
     public Bil(String fordonsTyp, String fordonsMarke, String fordonsModell, String regNr, int dagsHyra) {
         super(fordonsTyp, fordonsMarke, fordonsModell, regNr, dagsHyra);
@@ -17,18 +17,5 @@ public class Bil extends Vehicle implements Rentable{
         lager.sattVehicleTillLager(bil4);
     }
 
-    @Override
-    public void hyraFordon() {
 
-    }
-
-    @Override
-    public void aterlamnaFordon() {
-
-    }
-
-    @Override
-    public void beraknaKostnad() {
-
-    }
 }

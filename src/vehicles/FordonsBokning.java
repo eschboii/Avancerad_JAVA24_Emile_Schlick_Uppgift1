@@ -1,10 +1,11 @@
 package vehicles;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class FordonsBokning {
 
     FordonsLager fordonsLager = new FordonsLager();
-    Kund kund = new Kund(0,0,0);
+    Kund kund = new Kund();
 
     private boolean bokaFordon;
     private int val;
@@ -14,7 +15,6 @@ public class FordonsBokning {
     public FordonsBokning() {
         setBokning(true);
         viBokarFordon();
-
     }
 
     public void viBokarFordon() {
@@ -22,15 +22,66 @@ public class FordonsBokning {
             System.out.println("Hej, välkommen till Emiles fordonsbokning!");
             System.out.println("Var vänlig välj ett av alternativen");
             System.out.println();
-            System.out.println("1. Välj fordon");
+            System.out.println("1. Välj mellan fordonsalternativen!");
             System.out.println("2. Lämna tillbaka fordon");
             System.out.println("3. Kvitto");
             System.out.println("4. Avsluta med kvitto");
 
             scanningInt();
-            bokningsAlterntiv(getVal());
-
+            bokningsAlterntiv();
         }
+    }
+
+    private void bokningsAlterntiv(){
+        switch (getVal()) {
+            case 1: hyrFordonUI();
+                break;
+            case 2: //aterlamnaFordonUI(kund.getBilLager(),kund.getMotorcykelLager(),kund.getTraktorLager());
+                break;
+            case 3: kvittoUI();
+                break;
+            case 4: setBokning(false);
+                scan.close();
+        }
+    }
+
+    private void kvittoUI(){
+        System.out.println("Kvitto: Ditt hyresavtal");
+
+        System.out.println("\nTillgängliga bilar:");
+        ArrayList<Vehicle> bilLager = kund.getBilLager();
+        if (bilLager.isEmpty()) {
+            System.out.println("Inga bilar hyrda.");
+        } else {
+            for (Vehicle vehicle : bilLager) {
+                System.out.println(vehicle);  // This will call the toString method of the vehicle
+            }
+        }
+
+        // Print the rented motorcycles
+        System.out.println("\nTillgängliga motorcyklar:");
+        ArrayList<Vehicle> motorcykelLager = kund.getMotorcykelLager();
+        if (motorcykelLager.isEmpty()) {
+            System.out.println("Inga motorcyklar hyrda.");
+        } else {
+            for (Vehicle vehicle : motorcykelLager) {
+                System.out.println(vehicle);  // This will call the toString method of the vehicle
+            }
+        }
+
+        // Print the rented tractors
+        System.out.println("\nTillgängliga traktorer:");
+        ArrayList<Vehicle> traktorLager = kund.getTraktorLager();
+        if (traktorLager.isEmpty()) {
+            System.out.println("Inga traktorer hyrda.");
+        } else {
+            for (Vehicle vehicle : traktorLager) {
+                System.out.println(vehicle);  // This will call the toString method of the vehicle
+            }
+        }
+
+        // Optional: Display any other information (e.g., total cost, etc.)
+        System.out.println("\nTack för din hyra!");
     }
 
     private void hyrFordonUI (){
@@ -43,11 +94,94 @@ public class FordonsBokning {
         System.out.println();
         System.out.println("4. Tillbaka");
 
-        scanningInt ();
-        fordonsAlternativ(getVal());
+        scanningInt();
+        fordonsAlternativ();
     }
 
-    private void aterlamnaFordonUI (int antalBil, int antalMotorcykel, int antalTraktor){
+    private void fordonsAlternativ() {
+        setBokning(false);
+        switch (val) {
+            case 1: bilarPaLager();
+                break;
+
+            case 2:motorcykelPaLager();
+                break;
+
+            case 3: traktorPaLager();
+                break;
+            case 4:
+                setBokning(true);
+                viBokarFordon();
+                break;
+            default:
+                System.out.println("Ogiltigt val, försök igen.");
+                break;
+        }
+    }
+
+    private void bilarPaLager (){
+        System.out.println("Tillgängliga bilar:");
+        int raknare = 1;
+        for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
+            if (vehicle instanceof Bil) {
+                System.out.println(raknare + ". " + vehicle);
+                raknare++;
+            }
+        }
+
+        System.out.println(raknare + ". Tillbaka");
+
+        scanningInt();
+
+        if (getVal() == 5) {
+            hyrFordonUI();
+        } else {
+            // Create a new VehicleRental object to handle renting the selected vehicle
+            FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
+            fordonsHyrning.hyrFordon(getVal());  // Rent the vehicle based on the user's choice
+        }
+
+        hyrFordonUI ();
+
+    }
+
+    private void motorcykelPaLager(){
+        System.out.println("Tillgängliga Motorcyklar:");
+        int raknare = 1;
+        for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
+            if (vehicle instanceof Motorcykel) {
+                System.out.println(raknare + ". " + vehicle);
+                raknare++;
+            }
+        }
+        System.out.println(raknare + ". Tillbaka");
+
+        scanningInt();
+
+        if (getVal() == 3){
+            hyrFordonUI();
+        }
+    }
+
+    private void traktorPaLager(){
+        System.out.println("Tillgängliga Traktorer:");
+        int raknare = 1;
+        for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
+            if (vehicle instanceof Traktor) {
+                System.out.println(raknare + ". " + vehicle);
+                raknare++;
+            }
+        }
+        System.out.println(raknare + ". Tillbaka");
+
+        scanningInt();
+
+        if (getVal() == 2){
+            hyrFordonUI();
+        }
+    }
+
+   /* private void aterlamnaFordonUI (ArrayList antalBil, ArrayList antalMotorcykel, ArrayList antalTraktor){
         System.out.println("Vilken av dina fordon vill du lämna tillbaka?");
 
         if (antalBil > 0) {
@@ -65,83 +199,7 @@ public class FordonsBokning {
 
         scanningInt();
         aterlamnaFordonsAlternativ(getVal());
-    }
-
-    private void bokningsAlterntiv(int val){
-        switch (val) {
-            case 1: hyrFordonUI();
-                break;
-                case 2: aterlamnaFordonUI(kund.getBilLager(),kund.getMotorcykelLager(),kund.getTraktorLager());
-                    break;
-                    case 3: //anropaberakningsmetod
-                        break;
-            case 4: setBokning(false);
-                scan.close();//anropaberakningsmetod
-        }
-    }
-
-    private void fordonsAlternativ(int val) {
-        setBokning(false);
-        int raknare;
-        boolean korIgen = true;
-        while (korIgen) {
-            switch (val) {
-                case 1:
-                    System.out.println("Tillgängliga bilar:");
-                    raknare = 1;
-                    for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
-                        if (vehicle instanceof Bil) {
-                            System.out.println(raknare + ". " + vehicle);
-                            raknare++;
-                        }
-                    }
-
-                    System.out.println(raknare + ". Tillbaka");
-                    scanningInt();  // Wait for user input
-                    hyrValtFordon(3);  // If 3 is selected, go back
-                    korIgen = false;
-                    break;
-                case 2:
-                    System.out.println("Tillgängliga Motorcyklar:");
-                    raknare = 1;
-                    for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
-                        if (vehicle instanceof Motorcykel) {
-                            System.out.println(raknare + ". " + vehicle);
-                            raknare++;
-                        }
-                    }
-                    System.out.println(raknare + ". Tillbaka");
-                    scanningInt();
-                    hyrValtFordon(3);
-                    korIgen = false;
-
-                    break;
-                case 3:
-                    System.out.println("Tillgängliga Traktorer:");
-                    raknare = 1;
-                    for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
-                        if (vehicle instanceof Traktor) {
-                            System.out.println(raknare + ". " + vehicle);
-                            raknare++;
-                        }
-                    }
-
-                    System.out.println(raknare + ". Tillbaka");
-                    scanningInt();
-                    hyrValtFordon(3);
-                    korIgen = false;
-
-                    break;
-                case 4:
-                    viBokarFordon();  // Call the main menu or booking options
-                    korIgen = false;  // Exit the loop if the user wants to go back to the main menu
-                    break;
-                default:
-                    System.out.println("Ogiltigt val, försök igen.");
-                    break;
-            }
-        }
-    }
+    }*/
 
     private void aterlamnaFordonsAlternativ(int val){
         switch (val) {
@@ -161,7 +219,7 @@ public class FordonsBokning {
                 break;
             case 2:
                 break;
-            case 3: fordonsAlternativ(getVal());
+            case 3: hyrFordonUI();
                 break;
             case 4:
             default:

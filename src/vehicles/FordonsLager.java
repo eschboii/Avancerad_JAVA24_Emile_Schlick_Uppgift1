@@ -19,8 +19,25 @@ public class FordonsLager {
         fordonsLagerLista.add(vehicle);
     }
 
+    public void taBortFordonFranLager(Vehicle vehicle) {
+        fordonsLagerLista.remove(vehicle);  // Removes the selected vehicle from the stock list
+    }
+
+
     public ArrayList<Vehicle> getLagerSaldo() {
         return fordonsLagerLista;
+    }
+
+
+    private int vehiclesILagerPerTyp(Class<? extends Vehicle> vehicleTyp) {
+        // Refererar till något som kan vara antingen Vehicle eller en subklass, t.ex bil
+        int antal = 0;
+        for (Vehicle vehicle : fordonsLagerLista) {
+            if (vehicleTyp.isInstance(vehicle)) {
+                antal++;
+            }
+        }
+        return antal;
     }
 
     public int getBilLager() {
@@ -34,19 +51,6 @@ public class FordonsLager {
     public int getTraktorLager() {
         return vehiclesILagerPerTyp(Traktor.class);
     }
-
-    private int vehiclesILagerPerTyp(Class<? extends Vehicle> vehicleTyp) {
-        // Refererar till något som kan vara antingen Vehicle eller en subklass, t.ex bil
-        int antal = 0;
-        for (Vehicle vehicle : fordonsLagerLista) {
-            if (vehicleTyp.isInstance(vehicle)) {
-                antal++;
-            }
-        }
-        return antal;
-    }
-
-
 
 
 }

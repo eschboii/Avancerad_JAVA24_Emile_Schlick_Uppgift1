@@ -1,36 +1,32 @@
 package vehicles;
 
+import java.util.ArrayList;
+
 public class Kund {
-    private int bilLager;
-    private int motorcykelLager;
-    private int traktorLager;
+    private ArrayList<Vehicle> bilLager = new ArrayList<>();
+    private ArrayList<Vehicle> motorcykelLager = new ArrayList<>();
+    private ArrayList<Vehicle> traktorLager = new ArrayList<>();
 
-
-
-    public Kund(int bilLager, int motorcykelLager, int traktorLager) {
-        this.bilLager = bilLager;
-        this.motorcykelLager = motorcykelLager;
-        this.traktorLager = traktorLager;
-        setBillager();
+    // Method to add the rented vehicle to the appropriate list
+    public void addVehicleToRental(Vehicle vehicle) {
+        if (vehicle instanceof Bil) {
+            bilLager.add(vehicle);
+        } else if (vehicle instanceof Motorcykel) {
+            motorcykelLager.add(vehicle);
+        } else if (vehicle instanceof Traktor) {
+            traktorLager.add(vehicle);
+        }
     }
 
-    private int setBillager(){
+    // Getter methods for each type of rented vehicle
+    public ArrayList<Vehicle> getBilLager() {
         return bilLager;
     }
-
-    public int getBilLager() {
-        return bilLager;
-    }
-
-    public int getMotorcykelLager() {
+    public ArrayList<Vehicle> getMotorcykelLager() {
         return motorcykelLager;
     }
-
-    public int getTraktorLager() {
+    public ArrayList<Vehicle> getTraktorLager() {
         return traktorLager;
     }
-
-
-
-    //Kundens totala hyrningskostnad, kundens hyrda fordon, kunna lamna tillbaka valt fordon, hur många dagar som kunden vill hyra ett fordon
 }
+

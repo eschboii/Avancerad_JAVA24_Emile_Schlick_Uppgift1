@@ -80,19 +80,66 @@ public class FordonsBokning {
         }
     }
 
-    private void fordonsAlternativ(int val){
+    private void fordonsAlternativ(int val) {
         setBokning(false);
-        switch (val) {
-            case 1:
-                for (Vehicle vehicle : fordonsLager.getLagerSaldo()){
-                    System.out.println(vehicle);
-                }
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4: viBokarFordon();
+        int raknare;
+        boolean korIgen = true;
+        while (korIgen) {
+            switch (val) {
+                case 1:
+                    System.out.println("Tillgängliga bilar:");
+                    raknare = 1;
+                    for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
+                        if (vehicle instanceof Bil) {
+                            System.out.println(raknare + ". " + vehicle);
+                            raknare++;
+                        }
+                    }
+
+                    System.out.println(raknare + ". Tillbaka");
+                    scanningInt();  // Wait for user input
+                    hyrValtFordon(3);  // If 3 is selected, go back
+                    korIgen = false;
+                    break;
+                case 2:
+                    System.out.println("Tillgängliga Motorcyklar:");
+                    raknare = 1;
+                    for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
+                        if (vehicle instanceof Motorcykel) {
+                            System.out.println(raknare + ". " + vehicle);
+                            raknare++;
+                        }
+                    }
+                    System.out.println(raknare + ". Tillbaka");
+                    scanningInt();
+                    hyrValtFordon(3);
+                    korIgen = false;
+
+                    break;
+                case 3:
+                    System.out.println("Tillgängliga Traktorer:");
+                    raknare = 1;
+                    for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
+                        if (vehicle instanceof Traktor) {
+                            System.out.println(raknare + ". " + vehicle);
+                            raknare++;
+                        }
+                    }
+
+                    System.out.println(raknare + ". Tillbaka");
+                    scanningInt();
+                    hyrValtFordon(3);
+                    korIgen = false;
+
+                    break;
+                case 4:
+                    viBokarFordon();  // Call the main menu or booking options
+                    korIgen = false;  // Exit the loop if the user wants to go back to the main menu
+                    break;
+                default:
+                    System.out.println("Ogiltigt val, försök igen.");
+                    break;
+            }
         }
     }
 
@@ -108,9 +155,24 @@ public class FordonsBokning {
         }
     }
 
+    private void hyrValtFordon(int val){
+        switch (val) {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3: fordonsAlternativ(getVal());
+                break;
+            case 4:
+            default:
+                System.out.println("Ogiltigt val, försök igen.");
+                break;
+        }
+    }
+
     private void scanningInt (){
         while (!scan.hasNextInt()) {
-            System.out.println("Var vänlig och välj mellan alternativen 1, 2, 3 och 4");
+            System.out.println("Var vänlig och välj ett tal mellan alternativen");
             scan.next();
             System.out.println();
         }

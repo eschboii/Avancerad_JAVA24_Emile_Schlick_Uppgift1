@@ -6,6 +6,10 @@ public class Traktor extends Vehicle implements Rentable {
         super(fordonsTyp, fordonsMarke, fordonsModell, regNr, dagsHyra);
     }
 
+    public static void laggTillTraktorTillLager(FordonsLager lager) {
+        Traktor traktor1 = new Traktor("Traktor","John Deere", "9 series", "FAM241", 600);
+        lager.sattVehicleTillLager(traktor1);
+    }
 
     @Override
     public void hyraFordon() {

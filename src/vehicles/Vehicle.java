@@ -14,6 +14,31 @@ public abstract class Vehicle {
         this.regNr = regNr;
         this.dagsHyra = dagsHyra;
     }
+
+    public String toString() {
+        return String.format("%s: %s %s - RegNr: %s, DagsHyra: %d SEK",
+                fordonsTyp, fordonsMarke, fordonsModell, regNr, dagsHyra);
+    }
+
+    public String getFordonsTyp() {
+        return fordonsTyp;
+    }
+
+    public String getFordonsMarke() {
+        return fordonsMarke;
+    }
+
+    public String getFordonsModell() {
+        return fordonsModell;
+    }
+
+    public String getRegNr() {
+        return regNr;
+    }
+
+    public int getDagsHyra() {
+        return dagsHyra;
+    }
 }
 
 

@@ -10,50 +10,40 @@ public class FordonsLager {
     }
 
     private void setLagerSaldo(){
-        fordonsLagerLista.add(new Bil("Bil", "Volvo", "V70", "ABC123", 600));
-        fordonsLagerLista.add(new Bil("Bil", "Peugeot", "207", "CBA321", 6969));
-        fordonsLagerLista.add(new Bil("Bil", "Mazda", "626", "DEF456", 100));
-        fordonsLagerLista.add(new Bil("Bil", "Tesla", "Model S", "FED654", 1));
+        Bil.laggTillBilTillLager(this);
+        Motorcykel.laggTillMotorcykelTillLager(this);
+        Traktor.laggTillTraktorTillLager(this);
+    }
 
-        fordonsLagerLista.add(new Motorcykel("Motorcykel", "Suzuki", "GSX-8R", "SUP111", 400));
-        fordonsLagerLista.add(new Motorcykel("Motorcykel", "Yamaha", "Hyper naked", "PUS420", 322));
-
-        fordonsLagerLista.add(new Traktor("Traktor", "John Deere", "9 series", "FAM241", 600));
+    public void sattVehicleTillLager(Vehicle vehicle){
+        fordonsLagerLista.add(vehicle);
     }
 
     public ArrayList<Vehicle> getLagerSaldo() {
         return fordonsLagerLista;
     }
 
-    public int getBilLager(){
-        int antal = 0;
-        for (Vehicle vehicle : fordonsLagerLista) {
-            if (vehicle instanceof Bil) {
-                antal++;
-            }
-        }
-        return antal;
+    public int getBilLager() {
+        return vehiclesILagerPerTyp(Bil.class);
     }
 
-    public int getMotorcykelLager(){
-        int antal = 0;
-        for (Vehicle vehicle : fordonsLagerLista) {
-            if (vehicle instanceof Motorcykel) {
-                antal++;
-            }
-        }
-        return antal;
-
+    public int getMotorcykelLager() {
+        return vehiclesILagerPerTyp(Motorcykel.class);
     }
-    public int getTraktorLager(){
+
+    public int getTraktorLager() {
+        return vehiclesILagerPerTyp(Traktor.class);
+    }
+
+    private int vehiclesILagerPerTyp(Class<? extends Vehicle> vehicleTyp) {
+        // Refererar till något som kan vara antingen Vehicle eller en subklass, t.ex bil
         int antal = 0;
         for (Vehicle vehicle : fordonsLagerLista) {
-            if (vehicle instanceof Traktor) {
+            if (vehicleTyp.isInstance(vehicle)) {
                 antal++;
             }
         }
         return antal;
-
     }
 
 

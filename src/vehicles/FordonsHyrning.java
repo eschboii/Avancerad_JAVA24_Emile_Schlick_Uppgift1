@@ -5,35 +5,41 @@ public class FordonsHyrning {
     private FordonsLager fordonsLager;
     private Kund kund;
 
-    // Constructor
     public FordonsHyrning(FordonsLager fordonsLager, Kund kund) {
         this.fordonsLager = fordonsLager;
         this.kund = kund;
     }
 
-    // Method to rent a vehicle based on user choice
-    public void hyrFordon (int fordonsVal) {
+    public void hyrFordon (int fordonsVal, String fordon) {
         int raknare = 1;
         Vehicle valtFordon = null;
 
-        // Find the selected vehicle based on the user's input
+
         for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
-            if (vehicle instanceof Bil) {
+            if (fordon.equals("Bil") && vehicle instanceof Bil) {
                 if (raknare == fordonsVal) {
-                    valtFordon = vehicle;  // Store the selected vehicle
+                    valtFordon = vehicle;
+                    break;
+                }
+                raknare++;
+            } else if (fordon.equals("Motorcykel") && vehicle instanceof Motorcykel) {
+                if (raknare == fordonsVal) {
+                    valtFordon = vehicle;
+                    break;
+                }
+                raknare++;
+            } else if (fordon.equals("Traktor") && vehicle instanceof Traktor) {
+                if (raknare == fordonsVal) {
+                    valtFordon = vehicle;
                     break;
                 }
                 raknare++;
             }
         }
 
-        // If a vehicle was selected, proceed with rental
         if (valtFordon != null) {
-            // Add the selected vehicle to the customer's rented vehicles
-            addVehicleToCustomerRental(valtFordon);
-
-            // Remove the selected vehicle from FordonsLager stock
-            removeVehicleFromStock(valtFordon);
+            laggTillFordonTillKundHyrd(valtFordon);
+            taBortFordonFranLager(valtFordon);
 
             System.out.println("Fordon valt: " + valtFordon);
         } else {
@@ -41,20 +47,18 @@ public class FordonsHyrning {
         }
     }
 
-    // Method to add the vehicle to the customer's rental list
-    private void addVehicleToCustomerRental(Vehicle vehicle) {
+    private void laggTillFordonTillKundHyrd(Vehicle vehicle) {
         if (vehicle instanceof Bil) {
-            kund.addVehicleToRental(vehicle);  // Add the vehicle to the customer's bilLager
+            kund.laggTillFordonPaHyrd(vehicle);
         } else if (vehicle instanceof Motorcykel) {
-            kund.addVehicleToRental(vehicle);  // Add the vehicle to the customer's motorcykelLager
+            kund.laggTillFordonPaHyrd(vehicle);
         } else if (vehicle instanceof Traktor) {
-            kund.addVehicleToRental(vehicle);  // Add the vehicle to the customer's traktorLager
+            kund.laggTillFordonPaHyrd(vehicle);
         }
     }
 
-    // Method to remove the rented vehicle from FordonsLager stock
-    private void removeVehicleFromStock(Vehicle vehicle) {
-        fordonsLager.taBortFordonFranLager(vehicle);  // Remove the vehicle from stock
+    private void taBortFordonFranLager(Vehicle vehicle) {
+        fordonsLager.taBortFordonFranLager(vehicle);
     }
 }
 

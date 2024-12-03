@@ -20,7 +20,7 @@ public class FordonsLager {
     }
 
     public void taBortFordonFranLager(Vehicle vehicle) {
-        fordonsLagerLista.remove(vehicle);  // Removes the selected vehicle from the stock list
+        fordonsLagerLista.remove(vehicle);
     }
 
 
@@ -28,9 +28,7 @@ public class FordonsLager {
         return fordonsLagerLista;
     }
 
-
     private int vehiclesILagerPerTyp(Class<? extends Vehicle> vehicleTyp) {
-        // Refererar till något som kan vara antingen Vehicle eller en subklass, t.ex bil
         int antal = 0;
         for (Vehicle vehicle : fordonsLagerLista) {
             if (vehicleTyp.isInstance(vehicle)) {

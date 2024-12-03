@@ -7,8 +7,7 @@ public class Kund {
     private ArrayList<Vehicle> motorcykelLager = new ArrayList<>();
     private ArrayList<Vehicle> traktorLager = new ArrayList<>();
 
-    // Method to add the rented vehicle to the appropriate list
-    public void addVehicleToRental(Vehicle vehicle) {
+    public void laggTillFordonPaHyrd(Vehicle vehicle) {
         if (vehicle instanceof Bil) {
             bilLager.add(vehicle);
         } else if (vehicle instanceof Motorcykel) {
@@ -18,7 +17,7 @@ public class Kund {
         }
     }
 
-    // Getter methods for each type of rented vehicle
+
     public ArrayList<Vehicle> getBilLager() {
         return bilLager;
     }

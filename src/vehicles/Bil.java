@@ -20,8 +20,6 @@ public class Bil extends Vehicle implements Rentable{
     @Override
     public void hyraFordon() {
 
-
-
     }
 
     @Override

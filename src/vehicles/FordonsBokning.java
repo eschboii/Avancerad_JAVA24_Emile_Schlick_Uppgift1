@@ -54,7 +54,7 @@ public class FordonsBokning {
             System.out.println("Inga bilar hyrda.");
         } else {
             for (Vehicle vehicle : bilLager) {
-                System.out.println(vehicle);  // This will call the toString method of the vehicle
+                System.out.println(vehicle);
             }
         }
 
@@ -65,18 +65,17 @@ public class FordonsBokning {
             System.out.println("Inga motorcyklar hyrda.");
         } else {
             for (Vehicle vehicle : motorcykelLager) {
-                System.out.println(vehicle);  // This will call the toString method of the vehicle
+                System.out.println(vehicle);
             }
         }
 
-        // Print the rented tractors
         System.out.println("\nTillgängliga traktorer:");
         ArrayList<Vehicle> traktorLager = kund.getTraktorLager();
         if (traktorLager.isEmpty()) {
             System.out.println("Inga traktorer hyrda.");
         } else {
             for (Vehicle vehicle : traktorLager) {
-                System.out.println(vehicle);  // This will call the toString method of the vehicle
+                System.out.println(vehicle);
             }
         }
 
@@ -136,9 +135,8 @@ public class FordonsBokning {
         if (getVal() == 5) {
             hyrFordonUI();
         } else {
-            // Create a new VehicleRental object to handle renting the selected vehicle
             FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
-            fordonsHyrning.hyrFordon(getVal());  // Rent the vehicle based on the user's choice
+            fordonsHyrning.hyrFordon(getVal(), "Bil");
         }
 
         hyrFordonUI ();
@@ -160,7 +158,12 @@ public class FordonsBokning {
 
         if (getVal() == 3){
             hyrFordonUI();
+        } else {
+            FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
+            fordonsHyrning.hyrFordon(getVal(), "Motorcykel");
         }
+
+        hyrFordonUI ();
     }
 
     private void traktorPaLager(){
@@ -178,7 +181,12 @@ public class FordonsBokning {
 
         if (getVal() == 2){
             hyrFordonUI();
+        } else {
+            FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
+            fordonsHyrning.hyrFordon(getVal(), "Traktor");
         }
+
+        hyrFordonUI ();
     }
 
    /* private void aterlamnaFordonUI (ArrayList antalBil, ArrayList antalMotorcykel, ArrayList antalTraktor){

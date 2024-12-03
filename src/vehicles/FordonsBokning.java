@@ -48,7 +48,7 @@ public class FordonsBokning {
     private void kvittoUI(){
         System.out.println("Kvitto: Ditt hyresavtal");
 
-        System.out.println("\nTillgängliga bilar:");
+        System.out.println("\nHyrda bilar:");
         ArrayList<Vehicle> bilLager = kund.getBilLager();
         if (bilLager.isEmpty()) {
             System.out.println("Inga bilar hyrda.");
@@ -59,7 +59,7 @@ public class FordonsBokning {
         }
 
         // Print the rented motorcycles
-        System.out.println("\nTillgängliga motorcyklar:");
+        System.out.println("\nHyrda motorcyklar:");
         ArrayList<Vehicle> motorcykelLager = kund.getMotorcykelLager();
         if (motorcykelLager.isEmpty()) {
             System.out.println("Inga motorcyklar hyrda.");
@@ -69,7 +69,7 @@ public class FordonsBokning {
             }
         }
 
-        System.out.println("\nTillgängliga traktorer:");
+        System.out.println("\nHyrda traktorer:");
         ArrayList<Vehicle> traktorLager = kund.getTraktorLager();
         if (traktorLager.isEmpty()) {
             System.out.println("Inga traktorer hyrda.");
@@ -79,8 +79,12 @@ public class FordonsBokning {
             }
         }
 
+        System.out.println("\nTotal kostnad:");
+        System.out.println();
+
         // Optional: Display any other information (e.g., total cost, etc.)
-        System.out.println("\nTack för din hyra!");
+        System.out.println("\nTack, hyr gärna fler fordon!");
+        System.out.println();
     }
 
     private void hyrFordonUI (){

@@ -22,12 +22,14 @@ public class FordonsHyrning {
                     break;
                 }
                 raknare++;
+
             } else if (fordon.equals("Motorcykel") && vehicle instanceof Motorcykel) {
                 if (raknare == fordonsVal) {
                     valtFordon = vehicle;
                     break;
                 }
                 raknare++;
+
             } else if (fordon.equals("Traktor") && vehicle instanceof Traktor) {
                 if (raknare == fordonsVal) {
                     valtFordon = vehicle;

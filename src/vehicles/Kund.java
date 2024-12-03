@@ -17,7 +17,6 @@ public class Kund {
         }
     }
 
-
     public ArrayList<Vehicle> getBilLager() {
         return bilLager;
     }

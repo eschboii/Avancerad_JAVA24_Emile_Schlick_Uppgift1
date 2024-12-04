@@ -12,5 +12,4 @@ public class Motorcykel extends Vehicle{
         lager.sattVehicleTillLager(mc1);
         lager.sattVehicleTillLager(mc2);
     }
-
 }

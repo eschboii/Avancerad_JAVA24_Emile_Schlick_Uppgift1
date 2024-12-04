@@ -24,7 +24,7 @@ public class FordonsBokning {
             System.out.println();
             System.out.println("1. Välj mellan fordonsalternativen!");
             System.out.println("2. Lämna tillbaka fordon");
-            System.out.println("3. Kvitto");
+            System.out.println("3. Hyresavtal");
             System.out.println("4. Avsluta med kvitto");
 
             scanningInt();
@@ -34,19 +34,30 @@ public class FordonsBokning {
 
     private void bokningsAlterntiv(){
         switch (getVal()) {
-            case 1: hyrFordonUI();
+            case 1:
+                hyrFordonUI();
                 break;
-            case 2: aterlamnaFordonUI(kund.getTotaltLager());
+            case 2:
+                aterlamnaFordonUI(kund.getTotaltLager());
                 break;
-            case 3: kvittoUI();
+            case 3:
+                hyresavtalUI();
                 break;
-            case 4: setBokning(false);
+            case 4:
+                System.out.println("Tack för att du hyr fordon hos Emiles fräsiga fordonsuthyrning");
+                FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
+                fordonsHyrning.beraknaKostnad();
+                setBokning(false);
                 scan.close();
+                break;
+            default:
+                System.out.println("Ogiltigt val, försök igen.");
+                break;
         }
     }
 
-    private void kvittoUI(){
-        System.out.println("Kvitto: Ditt hyresavtal");
+    private void hyresavtalUI(){
+        System.out.println("\nDitt hyresavtal:");
 
         System.out.println("\nHyrda bilar:");
         ArrayList<Vehicle> bilLager = kund.getBilLager();
@@ -78,31 +89,34 @@ public class FordonsBokning {
             }
         }
 
-        System.out.println("\nTotal kostnad:");
-        System.out.println();
+        FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
+        fordonsHyrning.beraknaKostnad();
 
-        // Optional: Display any other information (e.g., total cost, etc.)
         System.out.println("\nTack, hyr gärna fler fordon!");
         System.out.println();
     }
 
     private void hyrFordonUI (){
         System.out.println("Du kan välja mellan dessa fordon");
-        System.out.printf("1. Bil, lagersaldo: %d", fordonsLager.getBilLager());
-        System.out.println();
-        System.out.printf("2. Motorcykel, lagersaldo: %d", fordonsLager.getMotorcykelLager());
-        System.out.println();
-        System.out.printf("3. Traktor, lagersaldo: %d", fordonsLager.getTraktorLager());
-        System.out.println();
+        System.out.printf("1. Bil, lagersaldo: %d\n", fordonsLager.getBilLager());
+        System.out.printf("2. Motorcykel, lagersaldo: %d\n", fordonsLager.getMotorcykelLager());
+        System.out.printf("3. Traktor, lagersaldo: %d\n", fordonsLager.getTraktorLager());
         System.out.println("4. Tillbaka");
 
         scanningInt();
-        fordonsAlternativ();
+
+        if (getVal() == 4) {
+            viBokarFordon();
+        } else if (getVal() >= 1 && getVal() <= 3) {
+            fordonsAlternativ();
+        } else {
+            System.out.println("Ogiltigt val, försök igen.");
+            hyrFordonUI();
+        }
     }
 
     private void fordonsAlternativ() {
-        setBokning(false);
-        switch (val) {
+        switch (getVal()) {
             case 1: bilarPaLager();
                 break;
 
@@ -112,11 +126,12 @@ public class FordonsBokning {
             case 3: traktorPaLager();
                 break;
             case 4:
-                setBokning(true);
                 viBokarFordon();
                 break;
+
             default:
                 System.out.println("Ogiltigt val, försök igen.");
+                hyrFordonUI();
                 break;
         }
     }
@@ -132,18 +147,15 @@ public class FordonsBokning {
         }
 
         System.out.println(raknare + ". Tillbaka");
-
         scanningInt();
 
-        if (getVal() == 5) {
+        if (getVal() == raknare) {
             hyrFordonUI();
         } else {
             FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
             fordonsHyrning.hyraFordon(getVal(), "Bil");
+            bilarPaLager();
         }
-
-        hyrFordonUI ();
-
     }
 
     private void motorcykelPaLager(){
@@ -155,18 +167,17 @@ public class FordonsBokning {
                 raknare++;
             }
         }
-        System.out.println(raknare + ". Tillbaka");
 
+        System.out.println(raknare + ". Tillbaka");
         scanningInt();
 
-        if (getVal() == 3){
+        if (getVal() == raknare){
             hyrFordonUI();
         } else {
             FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
             fordonsHyrning.hyraFordon(getVal(), "Motorcykel");
+            motorcykelPaLager();
         }
-
-        hyrFordonUI ();
     }
 
     private void traktorPaLager(){
@@ -178,23 +189,28 @@ public class FordonsBokning {
                 raknare++;
             }
         }
-        System.out.println(raknare + ". Tillbaka");
 
+        System.out.println(raknare + ". Tillbaka");
         scanningInt();
 
-        if (getVal() == 2){
+        if (getVal() == raknare){
             hyrFordonUI();
         } else {
             FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
             fordonsHyrning.hyraFordon(getVal(), "Traktor");
+            traktorPaLager();
         }
-
-        hyrFordonUI ();
     }
 
    private void aterlamnaFordonUI (ArrayList<Vehicle> hyrdaFordon){
-        System.out.println("Vilken av dina fordon vill du lämna tillbaka?");
-        int raknare = 1;
+       if (hyrdaFordon.isEmpty()) {
+           System.out.println("Du har inga hyrda fordon att lämna tillbaka.");
+           System.out.println();
+           return;
+       }
+
+       System.out.println("Vilken av dina fordon vill du lämna tillbaka?");
+       int raknare = 1;
 
        for (Vehicle hyrdaFordons : hyrdaFordon) {
            System.out.println(raknare + ". " + hyrdaFordons);
@@ -202,34 +218,49 @@ public class FordonsBokning {
        }
 
        System.out.println(raknare + ". Tillbaka");
-
        scanningInt();
-       //if
+
+       if (getVal() == raknare) {
+           return;
+       }
+
        aterlamnaFordonsAlternativ(hyrdaFordon);
     }
 
     private void aterlamnaFordonsAlternativ(ArrayList<Vehicle> hyrdaFordon){
-        switch (getVal()) {
-            case 1: FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
+        while (true) {
+            int valtFordonsIndex = getVal() - 1;
+            if (valtFordonsIndex >= 0 && valtFordonsIndex < hyrdaFordon.size()) {
+                Vehicle aterlamnatFordon = hyrdaFordon.get(valtFordonsIndex);
 
-               // fordonsHyrning.aterlamnaFordon(Bil);
+                FordonsHyrning fordonsHyrning = new FordonsHyrning(fordonsLager, kund);
+                fordonsHyrning.aterlamnaFordon(aterlamnatFordon);
+
+                fordonsLager.sattVehicleTillLager(aterlamnatFordon);
+
+                System.out.println("Du har lämnat tillbaka: " + aterlamnatFordon);
+                System.out.println();
                 break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4: viBokarFordon();
+            } else {
+                System.out.println("Ogiltigt val, försök igen.");
+                scanningInt();
+            }
         }
+        aterlamnaFordonUI(hyrdaFordon);
     }
 
     private void scanningInt (){
-        while (!scan.hasNextInt()) {
-            System.out.println("Var vänlig och välj ett tal mellan alternativen");
-            scan.next();
-            System.out.println();
+        while (true) {
+            if (scan.hasNextInt()) {
+                val = scan.nextInt();  // Valid input found, proceed
+                scan.nextLine();  // Consume the leftover newline character
+                setVal(val);
+                break;  // Exit the loop when valid input is entered
+            } else {
+                System.out.println("Var vänlig och välj ett tal mellan alternativen");
+                scan.next();  // Consume the invalid input
+            }
         }
-        val = scan.nextInt();
-        setVal(val);
     }
 
     public int getVal() {

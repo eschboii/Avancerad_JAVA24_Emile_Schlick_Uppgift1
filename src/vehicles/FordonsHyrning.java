@@ -15,7 +15,6 @@ public class FordonsHyrning implements Rentable{
         int raknare = 1;
         Vehicle valtFordon = null;
 
-
         for (Vehicle vehicle : fordonsLager.getLagerSaldo()) {
             if (fordon.equals("Bil") && vehicle instanceof Bil) {
                 if (raknare == fordonsVal) {
@@ -45,6 +44,7 @@ public class FordonsHyrning implements Rentable{
             taBortFordonFranLager(valtFordon);
 
             System.out.println("Fordon valt: " + valtFordon);
+            System.out.println();
         } else {
             System.out.println("Ogiltigt val, ingen bil valdes.");
         }
@@ -62,9 +62,7 @@ public class FordonsHyrning implements Rentable{
 
     private void taBortFordonFranLager(Vehicle vehicle) {
         fordonsLager.taBortFordonFranLager(vehicle);
-
     }
-
 
     @Override
     public void aterlamnaFordon(Vehicle vehicle) {
@@ -75,13 +73,16 @@ public class FordonsHyrning implements Rentable{
         } else if (vehicle instanceof Traktor) {
             kund.taBortTraktorFranKund(vehicle);
         }
-
     }
 
     @Override
     public void beraknaKostnad() {
+        int totalKostnad = 0;
 
-
+        for (Vehicle vehicle : kund.getTotaltLager()) {
+            totalKostnad += vehicle.dagsHyra;
+        }
+        System.out.println("\nDen totala kostnaden för dina hyrda fordon är: " + totalKostnad + " SEK");
     }
 }
 

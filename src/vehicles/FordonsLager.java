@@ -23,7 +23,6 @@ public class FordonsLager {
         fordonsLagerLista.remove(vehicle);
     }
 
-
     public ArrayList<Vehicle> getLagerSaldo() {
         return fordonsLagerLista;
     }
@@ -49,6 +48,4 @@ public class FordonsLager {
     public int getTraktorLager() {
         return vehiclesILagerPerTyp(Traktor.class);
     }
-
-
 }

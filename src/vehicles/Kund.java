@@ -22,14 +22,17 @@ public class Kund {
 
     public void taBortBilFranKund(Vehicle vehicle) {
         bilLager.remove(vehicle);
+        totalaFordon.remove(vehicle);
     }
 
     public void taBortMotorcykelFranKund(Vehicle vehicle) {
         motorcykelLager.remove(vehicle);
+        totalaFordon.remove(vehicle);
     }
 
     public void taBortTraktorFranKund(Vehicle vehicle) {
         traktorLager.remove(vehicle);
+        totalaFordon.remove(vehicle);
     }
 
     public ArrayList<Vehicle> getBilLager() {
@@ -45,7 +48,5 @@ public class Kund {
     public ArrayList<Vehicle> getTotaltLager() {
         return totalaFordon;
     }
-
-
 }
 

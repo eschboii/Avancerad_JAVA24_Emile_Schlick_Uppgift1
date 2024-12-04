@@ -16,6 +16,4 @@ public class Bil extends Vehicle{
         lager.sattVehicleTillLager(bil3);
         lager.sattVehicleTillLager(bil4);
     }
-
-
 }

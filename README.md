@@ -1,7 +1,5 @@
 # Emiles virtuella fordonsuthyrning
 
----
-
 Detta är ett konsolbaserat fordonsuthyrningssystem byggt i Java. 
 I programmet kan användaren hyra 3 olika sorters fordon, bilar, motorcyklar eller traktor. De kan välja att se vilka fordon de har hyrt och vad dagshyran för dessa kommer bli. De kan även välja att lämna tillbaka fordon och avsluta programmet. 
 
